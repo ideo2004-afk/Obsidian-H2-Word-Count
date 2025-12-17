@@ -1,10 +1,10 @@
 # H2 Word Count for Obsidian
 
-An Obsidian plugin that displays word and character counts next to H2 headers. This is especially useful for longer documents where you want to track the length of specific sections.
+An Obsidian plugin that displays word and character counts next to H1, H2, and H3 headers. This is especially useful for longer documents where you want to track the length of specific sections.
 
 ## Features
 
-- **Granular Word Counts**: Displays word count specifically for the content within an H2 section.
+- **Granular Word Counts**: Displays word count specifically for the content within an H1, H2, or H3 section.
 - **Character Counts**: Option to display character counts.
 - **Page Estimate**: Option to display estimated pages (based on 300 words per page).
 - **Reading Time**: Option to display estimated reading time.
@@ -21,11 +21,21 @@ An Obsidian plugin that displays word and character counts next to H2 headers. T
 - **Show word count**: Toggle the display of word counts.
 - **Show character count**: Toggle the display of character counts.
 - **Show page count**: Toggle the display of estimated pages.
-- **Show estimated reading time**: Toggle the display of reading time.
+- **H1/H2/H3**: Toggle word counts for specific header levels.
+
 
 ## Installation
 
-### From Community Plugins
+### Using BRAT (Recommended for Beta Testing)
+
+1. Install **BRAT** from the Community Plugins in Obsidian.
+2. Open BRAT settings.
+3. Click "Add Beta plugin".
+4. Enter the repository URL: `https://github.com/ideo2004-afk/Obsidian-H2-Word-Count`.
+5. Click "Add Plugin".
+6. The plugin will be installed and enabled.
+
+### From Community Plugins (Pending)
 1. Open Obsidian Settings > Community Plugins.
 2. Turn off "Safe mode".
 3. Click "Browse" and search for "H2 Word Count".
