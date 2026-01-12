@@ -47,6 +47,7 @@ var H2WordCountPlugin = class extends import_obsidian.Plugin {
     this.registerEditorExtension(h2WordCountField);
     this.addSettingTab(new H2WordCountSettingTab(this.app, this));
   }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onunload() {
   }
   async loadSettings() {
@@ -74,70 +75,62 @@ var H2WordCountSettingTab = class extends import_obsidian.PluginSettingTab {
   display() {
     const { containerEl } = this;
     containerEl.empty();
-    containerEl.createEl("h2", { text: "Display Options" });
-    new import_obsidian.Setting(containerEl).setName("Words").setDesc("Show word count").addToggle((toggle) => toggle.setValue(this.plugin.settings.showWords).onChange(async (value) => {
-      this.plugin.settings.showWords = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian.Setting(containerEl).setName("Characters").setDesc("Show character count").addToggle((toggle) => toggle.setValue(this.plugin.settings.showChars).onChange(async (value) => {
-      this.plugin.settings.showChars = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian.Setting(containerEl).setName("Pages").setDesc("Show page count (300 words per page)").addToggle((toggle) => toggle.setValue(this.plugin.settings.showPage).onChange(async (value) => {
-      this.plugin.settings.showPage = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian.Setting(containerEl).setName("Reading Time").setDesc("Show estimated reading time").addToggle((toggle) => toggle.setValue(this.plugin.settings.showReadingTime).onChange(async (value) => {
-      this.plugin.settings.showReadingTime = value;
-      await this.plugin.saveSettings();
-    }));
-
-    containerEl.createEl("h3", { text: "Header Levels" });
-
-    new import_obsidian.Setting(containerEl)
-      .setName("H1")
-      .setDesc("Show word count for H1 headers")
-      .addToggle((toggle) => toggle
-        .setValue(this.plugin.settings.showH1)
-        .onChange(async (value) => {
-          this.plugin.settings.showH1 = value;
-          await this.plugin.saveSettings();
-        }));
-
-    new import_obsidian.Setting(containerEl)
-      .setName("H2")
-      .setDesc("Show word count for H2 headers")
-      .addToggle((toggle) => toggle
-        .setValue(this.plugin.settings.showH2)
-        .onChange(async (value) => {
-          this.plugin.settings.showH2 = value;
-          await this.plugin.saveSettings();
-        }));
-
-    new import_obsidian.Setting(containerEl)
-      .setName("H3")
-      .setDesc("Show word count for H3 headers")
-      .addToggle((toggle) => toggle
-        .setValue(this.plugin.settings.showH3)
-        .onChange(async (value) => {
-          this.plugin.settings.showH3 = value;
-          await this.plugin.saveSettings();
-        }));
-
-    const donationDiv = containerEl.createDiv();
-    donationDiv.style.marginTop = "40px";
-    donationDiv.style.textAlign = "center";
+    containerEl.createEl("h2", { text: "Display options" });
+    new import_obsidian.Setting(containerEl).setName("Words").setDesc("Show word count").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.showWords).onChange(async (value) => {
+        this.plugin.settings.showWords = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian.Setting(containerEl).setName("Characters").setDesc("Show character count").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.showChars).onChange(async (value) => {
+        this.plugin.settings.showChars = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian.Setting(containerEl).setName("Pages").setDesc("Show page count (300 words per page)").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.showPage).onChange(async (value) => {
+        this.plugin.settings.showPage = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian.Setting(containerEl).setName("Reading time").setDesc("Show estimated reading time").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.showReadingTime).onChange(async (value) => {
+        this.plugin.settings.showReadingTime = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    containerEl.createEl("h3", { text: "Header levels" });
+    new import_obsidian.Setting(containerEl).setName("H1").setDesc("Show word count for H1 headers").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.showH1).onChange(async (value) => {
+        this.plugin.settings.showH1 = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian.Setting(containerEl).setName("H2").setDesc("Show word count for H2 headers").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.showH2).onChange(async (value) => {
+        this.plugin.settings.showH2 = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    new import_obsidian.Setting(containerEl).setName("H3").setDesc("Show word count for H3 headers").addToggle(
+      (toggle) => toggle.setValue(this.plugin.settings.showH3).onChange(async (value) => {
+        this.plugin.settings.showH3 = value;
+        await this.plugin.saveSettings();
+      })
+    );
+    const donationDiv = containerEl.createDiv({
+      cls: "h2-word-count-settings-support"
+    });
     donationDiv.createEl("p", {
       text: "If this plugin adds value for you and you would like to help support continued development, please use the buttons below:"
     });
     const link = donationDiv.createEl("a", {
       href: "https://buymeacoffee.com/ideo2004c"
     });
-    const img = link.createEl("img");
+    const img = link.createEl("img", { cls: "h2-word-count-donation-img" });
     img.src = "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png";
     img.alt = "Buy Me A Coffee";
-    img.style.height = "60px";
-    img.style.width = "217px";
   }
 };
 var WordCountWidget = class extends import_view.WidgetType {
@@ -146,7 +139,7 @@ var WordCountWidget = class extends import_view.WidgetType {
     this.wordCount = wordCount;
     this.charCount = charCount;
   }
-  toDOM(view) {
+  toDOM(_view) {
     const span = document.createElement("span");
     span.addClass("h2-word-count-widget");
     const parts = [];
@@ -167,7 +160,7 @@ var WordCountWidget = class extends import_view.WidgetType {
     if (parts.length > 0) {
       span.textContent = `(${parts.join(" / ")})`;
     } else {
-      span.style.display = "none";
+      span.addClass("h2-word-count-hidden");
     }
     return span;
   }
@@ -191,12 +184,8 @@ function computeWordCounts(state) {
   const builder = new import_state.RangeSetBuilder();
   const doc = state.doc;
   const lines = doc.lines;
-
-  // Active headers for H1, H2, H3 (indices 1, 2, 3)
-  // [null, H1_Obj, H2_Obj, H3_Obj]
-  let activeHeaders = [null, null, null, null];
-  let decorationsBuffer = [];
-
+  const activeHeaders = [null, null, null, null];
+  const decorationsBuffer = [];
   const closeHeader = (level, endOffset) => {
     const active = activeHeaders[level];
     if (!active)
@@ -217,34 +206,29 @@ function computeWordCounts(state) {
     decorationsBuffer.push({ pos: active.linePos, widget });
     activeHeaders[level] = null;
   };
-
   for (let i = 1; i <= lines; i++) {
     const line = doc.line(i);
     const text = line.text;
-
     let level = 0;
-    if (text.startsWith("# ")) level = 1;
-    else if (text.startsWith("## ")) level = 2;
-    else if (text.startsWith("### ")) level = 3;
-
+    if (text.startsWith("# "))
+      level = 1;
+    else if (text.startsWith("## "))
+      level = 2;
+    else if (text.startsWith("### "))
+      level = 3;
     if (level > 0) {
-      // Close open headers of same or lower rank (i.e. larger level numbers)
-      // Actually, H1 should close current H1, H2, H3
-      // H2 should close current H2, H3
-      // H3 should close current H3
-      // So loop from 3 down to current level
       for (let l = 3; l >= level; l--) {
         if (activeHeaders[l]) {
           closeHeader(l, line.from);
         }
       }
-
-      // Check if enabled
       let enabled = false;
-      if (level === 1) enabled = currentSettings.showH1;
-      else if (level === 2) enabled = currentSettings.showH2;
-      else if (level === 3) enabled = currentSettings.showH3;
-
+      if (level === 1)
+        enabled = currentSettings.showH1;
+      else if (level === 2)
+        enabled = currentSettings.showH2;
+      else if (level === 3)
+        enabled = currentSettings.showH3;
       if (enabled) {
         activeHeaders[level] = {
           from: line.from,
@@ -254,14 +238,11 @@ function computeWordCounts(state) {
       }
     }
   }
-
-  // Close remaining
   for (let l = 1; l <= 3; l++) {
     if (activeHeaders[l]) {
       closeHeader(l, doc.length);
     }
   }
-
   decorationsBuffer.sort((a, b) => a.pos - b.pos);
   for (const d of decorationsBuffer) {
     builder.add(d.pos, d.pos, d.widget);

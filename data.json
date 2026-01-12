@@ -3,7 +3,7 @@
   "showChars": false,
   "showPage": false,
   "showReadingTime": false,
-  "showH1": false,
+  "showH1": true,
   "showH2": true,
   "showH3": false
 }
