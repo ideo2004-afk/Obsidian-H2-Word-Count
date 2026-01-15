@@ -1,7 +1,7 @@
 {
   "id": "h2-word-count",
   "name": "H2 Word Count",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "minAppVersion": "0.15.0",
   "description": "Displays word and character counts next to H1-H3 headers.",
   "author": "ideo2004",

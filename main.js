@@ -47,7 +47,6 @@ var H2WordCountPlugin = class extends import_obsidian.Plugin {
     this.registerEditorExtension(h2WordCountField);
     this.addSettingTab(new H2WordCountSettingTab(this.app, this));
   }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onunload() {
   }
   async loadSettings() {
@@ -59,9 +58,9 @@ var H2WordCountPlugin = class extends import_obsidian.Plugin {
     this.app.workspace.iterateAllLeaves((leaf) => {
       if (leaf.view.getViewType() === "markdown") {
         const view = leaf.view;
-        const cm = view.editor.cm;
-        if (cm) {
-          cm.dispatch();
+        const editorWithCM = view.editor;
+        if (editorWithCM.cm instanceof import_view.EditorView) {
+          editorWithCM.cm.dispatch();
         }
       }
     });
@@ -75,7 +74,7 @@ var H2WordCountSettingTab = class extends import_obsidian.PluginSettingTab {
   display() {
     const { containerEl } = this;
     containerEl.empty();
-    containerEl.createEl("h2", { text: "Display options" });
+    new import_obsidian.Setting(containerEl).setName("Display options").setHeading();
     new import_obsidian.Setting(containerEl).setName("Words").setDesc("Show word count").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showWords).onChange(async (value) => {
         this.plugin.settings.showWords = value;
@@ -100,20 +99,20 @@ var H2WordCountSettingTab = class extends import_obsidian.PluginSettingTab {
         await this.plugin.saveSettings();
       })
     );
-    containerEl.createEl("h3", { text: "Header levels" });
-    new import_obsidian.Setting(containerEl).setName("H1").setDesc("Show word count for H1 headers").addToggle(
+    new import_obsidian.Setting(containerEl).setName("Header levels").setHeading();
+    new import_obsidian.Setting(containerEl).setName("Level 1 headers").setDesc("Show word count for H1 headers").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showH1).onChange(async (value) => {
         this.plugin.settings.showH1 = value;
         await this.plugin.saveSettings();
       })
     );
-    new import_obsidian.Setting(containerEl).setName("H2").setDesc("Show word count for H2 headers").addToggle(
+    new import_obsidian.Setting(containerEl).setName("Level 2 headers").setDesc("Show word count for H2 headers").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showH2).onChange(async (value) => {
         this.plugin.settings.showH2 = value;
         await this.plugin.saveSettings();
       })
     );
-    new import_obsidian.Setting(containerEl).setName("H3").setDesc("Show word count for H3 headers").addToggle(
+    new import_obsidian.Setting(containerEl).setName("Level 3 headers").setDesc("Show word count for H3 headers").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showH3).onChange(async (value) => {
         this.plugin.settings.showH3 = value;
         await this.plugin.saveSettings();

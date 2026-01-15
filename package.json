@@ -1,6 +1,6 @@
 {
   "name": "obsidian-h2-word-count",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Obsidian plugin to count words in H1-H3 sections",
   "main": "main.js",
   "scripts": {
@@ -10,6 +10,10 @@
   "keywords": [],
   "author": "ideo2004",
   "license": "MIT",
+  "dependencies": {
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0"
+  },
   "devDependencies": {
     "@types/node": "^16.11.6",
     "@typescript-eslint/eslint-plugin": "5.29.0",

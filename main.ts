@@ -48,8 +48,9 @@ export default class H2WordCountPlugin extends Plugin {
     this.addSettingTab(new H2WordCountSettingTab(this.app, this));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onunload() {}
+  onunload() {
+    // Plugin cleanup is handled by Obsidian
+  }
 
   async loadSettings() {
     this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
@@ -62,10 +63,10 @@ export default class H2WordCountPlugin extends Plugin {
     this.app.workspace.iterateAllLeaves((leaf) => {
       if (leaf.view.getViewType() === "markdown") {
         const view = leaf.view as MarkdownView;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const cm = (view.editor as any).cm as EditorView;
-        if (cm) {
-          cm.dispatch();
+        // Access CodeMirror 6 EditorView through Obsidian's internal editor structure
+        const editorWithCM = view.editor as { cm?: EditorView };
+        if (editorWithCM.cm instanceof EditorView) {
+          editorWithCM.cm.dispatch();
         }
       }
     });
@@ -84,7 +85,7 @@ class H2WordCountSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl("h2", { text: "Display options" });
+    new Setting(containerEl).setName("Display options").setHeading();
 
     new Setting(containerEl)
       .setName("Words")
@@ -134,10 +135,10 @@ class H2WordCountSettingTab extends PluginSettingTab {
           })
       );
 
-    containerEl.createEl("h3", { text: "Header levels" });
+    new Setting(containerEl).setName("Header levels").setHeading();
 
     new Setting(containerEl)
-      .setName("H1")
+      .setName("Level 1 headers")
       .setDesc("Show word count for H1 headers")
       .addToggle((toggle: ToggleComponent) =>
         toggle
@@ -149,7 +150,7 @@ class H2WordCountSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("H2")
+      .setName("Level 2 headers")
       .setDesc("Show word count for H2 headers")
       .addToggle((toggle: ToggleComponent) =>
         toggle
@@ -161,7 +162,7 @@ class H2WordCountSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName("H3")
+      .setName("Level 3 headers")
       .setDesc("Show word count for H3 headers")
       .addToggle((toggle: ToggleComponent) =>
         toggle
