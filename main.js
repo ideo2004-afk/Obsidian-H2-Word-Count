@@ -74,7 +74,7 @@ var H2WordCountSettingTab = class extends import_obsidian.PluginSettingTab {
   display() {
     const { containerEl } = this;
     containerEl.empty();
-    new import_obsidian.Setting(containerEl).setName("Display options").setHeading();
+    new import_obsidian.Setting(containerEl).setName("Display").setHeading();
     new import_obsidian.Setting(containerEl).setName("Words").setDesc("Show word count").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showWords).onChange(async (value) => {
         this.plugin.settings.showWords = value;
@@ -100,19 +100,19 @@ var H2WordCountSettingTab = class extends import_obsidian.PluginSettingTab {
       })
     );
     new import_obsidian.Setting(containerEl).setName("Header levels").setHeading();
-    new import_obsidian.Setting(containerEl).setName("Level 1 headers").setDesc("Show word count for H1 headers").addToggle(
+    new import_obsidian.Setting(containerEl).setName("Level 1 headers").setDesc("Show word count for level 1 headers").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showH1).onChange(async (value) => {
         this.plugin.settings.showH1 = value;
         await this.plugin.saveSettings();
       })
     );
-    new import_obsidian.Setting(containerEl).setName("Level 2 headers").setDesc("Show word count for H2 headers").addToggle(
+    new import_obsidian.Setting(containerEl).setName("Level 2 headers").setDesc("Show word count for level 2 headers").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showH2).onChange(async (value) => {
         this.plugin.settings.showH2 = value;
         await this.plugin.saveSettings();
       })
     );
-    new import_obsidian.Setting(containerEl).setName("Level 3 headers").setDesc("Show word count for H3 headers").addToggle(
+    new import_obsidian.Setting(containerEl).setName("Level 3 headers").setDesc("Show word count for level 3 headers").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showH3).onChange(async (value) => {
         this.plugin.settings.showH3 = value;
         await this.plugin.saveSettings();

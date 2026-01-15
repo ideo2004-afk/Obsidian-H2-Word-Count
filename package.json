@@ -1,6 +1,6 @@
 {
   "name": "obsidian-h2-word-count",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Obsidian plugin to count words in H1-H3 sections",
   "main": "main.js",
   "scripts": {

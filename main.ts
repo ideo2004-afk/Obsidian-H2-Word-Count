@@ -85,7 +85,7 @@ class H2WordCountSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    new Setting(containerEl).setName("Display options").setHeading();
+    new Setting(containerEl).setName("Display").setHeading();
 
     new Setting(containerEl)
       .setName("Words")
@@ -139,7 +139,7 @@ class H2WordCountSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Level 1 headers")
-      .setDesc("Show word count for H1 headers")
+      .setDesc("Show word count for level 1 headers")
       .addToggle((toggle: ToggleComponent) =>
         toggle
           .setValue(this.plugin.settings.showH1)
@@ -151,7 +151,7 @@ class H2WordCountSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Level 2 headers")
-      .setDesc("Show word count for H2 headers")
+      .setDesc("Show word count for level 2 headers")
       .addToggle((toggle: ToggleComponent) =>
         toggle
           .setValue(this.plugin.settings.showH2)
@@ -163,7 +163,7 @@ class H2WordCountSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Level 3 headers")
-      .setDesc("Show word count for H3 headers")
+      .setDesc("Show word count for level 3 headers")
       .addToggle((toggle: ToggleComponent) =>
         toggle
           .setValue(this.plugin.settings.showH3)
